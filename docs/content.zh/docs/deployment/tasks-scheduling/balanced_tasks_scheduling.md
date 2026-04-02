@@ -23,9 +23,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<a name="balanced-tasks-scheduling"></a>
+
 # Task 均衡调度
 
 本文档描述了 Task 均衡调度的背景和原理，以及如何在流处理作业中使用它。
+
+<a name="background"></a>
 
 ## 背景
 
@@ -39,6 +43,8 @@ under the License.
 
 <span class="label label-info">注意</span> 并非并行度不一致就必须使用此策略，需根据实际情况判断。
 
+<a name="principle"></a>
+
 ## 原理
 
 基于 Task 数量的负载均衡调度策略将 Task 分配给 TaskManager 的过程分为两个阶段：
@@ -46,6 +52,8 @@ under the License.
 - Slot 到 TaskManager 的分配阶段
 
 本节将通过两个示例对基于 Task 数量的调度策略在上述两个阶段中处理 Task 分配的简化流程及其原理加以说明。
+
+<a name="the-tasks-to-slots-assignment-phase"></a>
 
 ### Task 到 Slot 的分配阶段
 
@@ -63,6 +71,8 @@ under the License.
 如图（e）所示，在基于 Task 数量的分配策略下，每个 Slot 的任务数量范围（最大值与最小值之差）为 `1`，这优于图（d）所示默认策略下的范围 `3`。
 
 因此，这确保了 Slot 之间 Task 数量更加均衡地分布。
+
+<a name="the-slots-to-taskmanagers-assignment-phase"></a>
 
 ### Slot 到 TaskManager 的分配阶段
 
@@ -82,11 +92,15 @@ Slot 资源准备就绪后：
 
 因此，如果你遇到上述描述的性能瓶颈问题，使用这种 Task 负载均衡调度策略可以改善性能。请注意，如果你没有遇到这些瓶颈问题，则不应使用此策略，因为这可能导致性能下降。
 
+<a name="usage"></a>
+
 ## 使用方法
 
 你可以通过以下配置项启用 Task 均衡调度：
 
 - `taskmanager.load-balance.mode`: `tasks`
+
+<a name="more-details"></a>
 
 ## 更多详情
 
