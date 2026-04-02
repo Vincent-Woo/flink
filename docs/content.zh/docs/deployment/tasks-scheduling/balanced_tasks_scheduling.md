@@ -37,7 +37,7 @@ under the License.
 
 {{< img src="/fig/deployments/tasks-scheduling/tasks_scheduling_skew_case.svg" alt="任务调度倾斜示例" class="offset" width="50%" >}}
 
-如图（a）所示，假设 Flink 作业包含两个顶点：`JobVertex-A(JV-A)`和`JobVertex-B(JV-B)`，并行度分别为 `6` 和 `3`，且两个顶点属于同一个 Slot 共享组。在默认 Task 调度策略下，如图（b）所示，Task 在 TaskManager 之间的分布可能导致 Task 负载显著不均。具体来说，Task 数量最多的 TaskManager 可能承载 `4` 个任务，而负载最低的 TaskManager 可能只有 `2` 个任务。因此，承载 4 个 Task 的 TaskManager 容易成为整个作业的性能瓶颈。
+如图（a）所示，假设 Flink 作业包含两个顶点：`JobVertex-A(JV-A)` 和 `JobVertex-B(JV-B)`，并行度分别为 `6` 和 `3`，且两个顶点属于同一个 Slot 共享组。在默认 Task 调度策略下，如图（b）所示，Task 在 TaskManager 之间的分布可能导致 Task 负载显著不均。具体来说，Task 数量最多的 TaskManager 可能承载 `4` 个任务，而负载最低的 TaskManager 可能只有 `2` 个任务。因此，承载 4 个 Task 的 TaskManager 容易成为整个作业的性能瓶颈。
 
 因此，Flink 提供了基于 Task 数量的 Task 均衡调度能力。在作业的资源视图中，它旨在确保分配给每个 TaskManager 的任务数量尽可能接近，从而改善 TaskManager 之间的资源使用倾斜。
 
